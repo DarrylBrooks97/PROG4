@@ -14,9 +14,10 @@ void queue_deQueue_arr();
 int queue_isEmpty_arr(); 
 void queue_print_arr();
 
+int size = 100;
 int fron = -1;
 int endi = -1;
-int q[100];
+int q[0];
 
 struct node
 {
@@ -179,6 +180,9 @@ void queue_enQueue_arr() //Complete the function stubs needed to implement the o
     cout<<"\nEnter data to be inserted: ";
     cin>>data;
 
+    endi = (endi + 1) % size;
+    q[endi] = data;
+    ++size;
 
 }
 
@@ -188,8 +192,10 @@ void queue_enQueue_arr() //Complete the function stubs needed to implement the o
 //----------------------------------------------------------------------
 void queue_deQueue_arr() //Complete the function stubs needed to implement the operations 
 {
-
-
+    
+    fron = (fron + 1) % size;
+    int temp = q[fron];
+    --size;
 }
 
 //----------------------------------------------------------------------
@@ -199,7 +205,8 @@ void queue_deQueue_arr() //Complete the function stubs needed to implement the o
 int queue_isEmpty_arr() //Complete the function stubs needed to implement the operations 
 { 
 
-// 	if()
+ 	if(size<0) return 1;
+    else return 0;
 
 } 
 
