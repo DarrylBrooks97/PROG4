@@ -16,7 +16,8 @@ int stack_isEmpty_arr();
 int peek_arr();
 void stack_print_arr();
 
-int top = -1;
+int size = 100;
+int top = 0;
 int st[100];
 
 struct node
@@ -38,6 +39,16 @@ void stack_push_list() //Complete the function stubs needed to implement the ope
     cout<<"\nEnter data: ";
     cin>>data;
 
+    if(stack_isEmpty_list()){
+        head = new node;
+        head->data = data;
+        head->next = NULL;
+    }else{
+        node * newHead = new node;
+        newHead->data = data;
+        newHead->next = head;
+        head = newHead;
+    }
 
 }
 
@@ -48,6 +59,13 @@ void stack_push_list() //Complete the function stubs needed to implement the ope
 void stack_pop_list() //Complete the function stubs needed to implement the operations 
 {
 
+    if(stack_isEmpty_list()) cout<<"EMPTY STACK"<<endl;
+    else{
+        node * trash = head;
+        head = head->next;
+        trash->next = NULL;
+        delete trash;
+    }
 
 }
 
@@ -57,8 +75,8 @@ void stack_pop_list() //Complete the function stubs needed to implement the oper
 //---------------------------------------------------------------------- 
 int stack_isEmpty_list() //Complete the function stubs needed to implement the operations 
 { 
-
-
+    if(!head)return 1;
+    else return 0;
 } 
 
 //----------------------------------------------------------------------
@@ -66,9 +84,9 @@ int stack_isEmpty_list() //Complete the function stubs needed to implement the o
 // The implementation of the stack is based on the LinkedList.
 //----------------------------------------------------------------------
 int stack_peek_list() //Complete the function stubs needed to implement the operations 
-{ 
-
- 
+{
+    if(stack_isEmpty_list()) return -999;
+    else return head->data;
 }
 
 //----------------------------------------------------------------------
@@ -79,9 +97,9 @@ void stack_print_list()
 {
     node *temp;
     temp = head;
-    if (head==NULL)
+    if (stack_isEmpty_list())
     {
-        cout<<"\n\t\tLIST EMPTY!!\n";
+        cout<<"\n\t\tSTACK EMPTY!!\n";
     }
     else
     {
@@ -106,50 +124,58 @@ void stack_print_list()
 //----------------------------------------------------------------------
 void stack_list()
 {
-    cout<<"\n\t\t STACK AS LINKED LIST\n";
-    cout<<"Choose any option\n";
-    cout<<"\n0. Exit\n1. Insert\n2. Delete\n3. Top Element\n4. Print\n5. Back\n";
-    int n;
-    cin>>n;
-    switch (n)
-    {
-    case 0:
-        break;
-    case 1:
-        stack_push_list();
-        break;
-    case 2:
-        stack_pop_list();
-        break;
-    case 3:
-        stack_peek_list();
-        break;
-    case 4:
-        stack_print_list();
-        break;
-    case 5:
-        cout<<"\n0. Exit\n1. Stack(as array)\n2. Stack(as linked list)\n";
-        cout<<"Enter choice: ";
+    do{
+        cout<<"\n\t\t STACK AS LINKED LIST\n";
+        cout<<"Choose any option\n";
+        cout<<"\n0. Exit\n1. Insert\n2. Delete\n3. Top Element\n4. Print\n5. Back\n";
+        int n;
         cin>>n;
         switch (n)
         {
         case 0:
+            exit(1);
             break;
         case 1:
-            stack_arr();
+            stack_push_list();
             break;
         case 2:
-            stack_list();
+            stack_pop_list();
+            break;
+        case 3:
+            cout<<"Top of the STACK is: "<<stack_peek_list()<<endl;
+            break;
+        case 4:
+            stack_print_list();
+            break;
+        case 5:
+            do{
+                cout<<"\n0. Exit\n1. Stack(as array)\n2. Stack(as linked list)\n";
+                cout<<"Enter choice: ";
+                cin>>n;
+                switch (n)
+                {
+                case 0:
+                    exit(1);
+                    break;
+                case 1:
+                    stack_arr();
+                    break;
+                case 2:
+                    stack_list();
+                    break;
+                default:
+                    cout<<"Invalid Choice";
+                    break;
+                }
+            }while(1);
+            
             break;
         default:
-            cout<<"Invalid Choice";
+            cout<<"\nInvalid choice\n";
             break;
         }
-        break;
-    default:
-        cout<<"\nInvalid choice\n";
-        break;
-    }
+    }while(1);
+    
 }
 
 
@@ -163,7 +189,10 @@ void stack_push_arr() //Complete the function stubs needed to implement the oper
     cout << "Enter the data: ";
     cin >> data;
 
-
+    if(top==size)cout<<"STACK IS FULL TRY POPPING OFF THEN PUSH"<<endl;
+    else{
+        st[top++] = data;
+    }
 
 }
 
@@ -173,8 +202,10 @@ void stack_push_arr() //Complete the function stubs needed to implement the oper
 //----------------------------------------------------------------------
 void stack_pop_arr() //Complete the function stubs needed to implement the operations 
 {
-
-
+    if(stack_isEmpty_arr())cout<<"EMPTY STACK"<<endl;
+    else{
+        int temp = st[--top];
+    }
 }
 
 //----------------------------------------------------------------------
@@ -183,9 +214,9 @@ void stack_pop_arr() //Complete the function stubs needed to implement the opera
 //---------------------------------------------------------------------- 
 int stack_isEmpty_arr() //Complete the function stubs needed to implement the operations 
 { 
-
-
-} 
+    if(top==0) return 1;
+    else return 0;
+}
 
 //----------------------------------------------------------------------
 // Function: Return top element in a stack. 
@@ -193,8 +224,11 @@ int stack_isEmpty_arr() //Complete the function stubs needed to implement the op
 //----------------------------------------------------------------------
 int stack_peek_arr() //Complete the function stubs needed to implement the operations 
 { 
-
-
+    if(stack_isEmpty_arr()) return -999;
+    else{
+        int temp = top;
+        return st[--temp];
+    }
 }
 
 //----------------------------------------------------------------------
@@ -233,48 +267,55 @@ void stack_print_arr()
 //----------------------------------------------------------------------
 void stack_arr()
 {
-    cout<<"\n\t\t STACK AS ARRAY\n";
-    cout<<"Choose any option\n";
-    cout<<"\n0. Exit\n1. Insert\n2. Delete\n3. Top Element\n4. Print\n5. Back\n";
-    int n;
-    cin>>n;
-    switch (n)
-    {
-    case 0:
-        break;
-    case 1:
-        stack_push_arr();
-        break;
-    case 2:
-        stack_pop_arr();
-        break;
-    case 3:
-        stack_peek_arr();
-        break;
-    case 4:
-        stack_print_arr();
-        break;
-    case 5:
-        cout<<"\n0. Exit\n1. Stack(as array)\n2. Stack(as linked list)\n";
-        cout<<"Enter choice: ";
+    do{
+        cout<<"\n\t\t STACK AS ARRAY\n";
+        cout<<"Choose any option\n";
+        cout<<"\n0. Exit\n1. Insert\n2. Delete\n3. Top Element\n4. Print\n5. Back\n";
+        int n;
         cin>>n;
         switch (n)
         {
         case 0:
+            exit(1);
             break;
         case 1:
-            stack_arr();
+            stack_push_arr();
             break;
         case 2:
-            stack_list();
+            stack_pop_arr();
+            break;
+        case 3:
+            cout<<"Top of Stack is: "<<stack_peek_arr()<<endl;
+            break;
+        case 4:
+            stack_print_arr();
+            break;
+        case 5:
+            do{
+                cout<<"\n0. Exit\n1. Stack(as array)\n2. Stack(as linked list)\n";
+                cout<<"Enter choice: ";
+                cin>>n;
+                switch (n)
+                {
+                case 0:
+                    exit(1);
+                    break;
+                case 1:
+                    stack_arr();
+                    break;
+                case 2:
+                    stack_list();
+                    break;
+                default:
+                    cout<<"Invalid Choice";
+                    break;
+                }
+            }while(1);
             break;
         default:
-            cout<<"Invalid Choice";
+            cout << "\nInvalid choice\n";
             break;
         }
-        break;
-    default:
-        cout << "\nInvalid choice\n";
-        break;
-    }
+    }while(1);
+    
 }
