@@ -14,10 +14,10 @@ void queue_deQueue_arr();
 int queue_isEmpty_arr(); 
 void queue_print_arr();
 
-int size = 100;
 int fron = -1;
 int endi = -1;
-int q[0];
+int q[100];
+int size = 0;
 
 struct node
 {
@@ -91,7 +91,7 @@ void queue_print_list()
 {
     node *temp;
     temp=head;
-    if (head==NULL)
+    if (queue_isEmpty_list())
     {
         cout<<"\n\t\tLIST EMPTY!!\n";
     }
@@ -174,16 +174,15 @@ void queue_list()
 // Function: Add an element data in the queue. 
 // The implementation of the queue is based on the array.  
 // ----------------------------------------------------------------------
-void queue_enQueue_arr() //Complete the function stubs needed to implement the operations 
+void queue_enQueue_arr() //Complete the function stubs needed to implement the operations
 {
     int data;
     cout<<"\nEnter data to be inserted: ";
     cin>>data;
 
-    endi = (endi + 1) % size;
+    endi = (endi + 1) % 100;
     q[endi] = data;
     ++size;
-
 }
 
 //----------------------------------------------------------------------
@@ -192,10 +191,12 @@ void queue_enQueue_arr() //Complete the function stubs needed to implement the o
 //----------------------------------------------------------------------
 void queue_deQueue_arr() //Complete the function stubs needed to implement the operations 
 {
-    
-    fron = (fron + 1) % size;
-    int temp = q[fron];
-    --size;
+    if (queue_isEmpty_arr()) cout<<"Queue is empty"<<endl;
+    else{
+        fron = (fron + 1) % 100;
+        int temp = q[fron];
+        --size;
+    }
 }
 
 //----------------------------------------------------------------------
@@ -205,7 +206,7 @@ void queue_deQueue_arr() //Complete the function stubs needed to implement the o
 int queue_isEmpty_arr() //Complete the function stubs needed to implement the operations 
 { 
 
- 	if(size<0) return 1;
+    if(size==0) return 1;
     else return 0;
 
 } 
@@ -218,10 +219,19 @@ void queue_print_arr()
 {
     cout << "\n\n\n\t\tThe Representation of queueue is as follows\n\n";
     cout << "\t\t\t\t";
-    for (int i=endi;i>=fron;i--)
-    {
-        cout<<q[i]<<" | ";
+    if(queue_isEmpty_arr()){
+        cout<<"Queue is empty"<<endl;
+        cout<<size<<endl;
     }
+    else{
+        for (int i=endi;i>fron;i--)
+        {
+            cout<<q[i]<<" | ";
+        }
+        cout<<"\nFront= "<<fron;
+        cout<<"\nEnd= "<<endi<<endl;
+    }
+    
     cin.get();
     queue_arr();
 }
