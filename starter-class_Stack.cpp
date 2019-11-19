@@ -17,7 +17,7 @@ int peek_arr();
 void stack_print_arr();
 
 int size = 100;
-int top = 0;
+int top = -1;
 int st[100];
 
 struct node
@@ -191,7 +191,8 @@ void stack_push_arr() //Complete the function stubs needed to implement the oper
 
     if(top==size)cout<<"STACK IS FULL TRY POPPING OFF THEN PUSH"<<endl;
     else{
-        st[top++] = data;
+        if(stack_isEmpty_arr()) st[++top] = data;
+        else st[++top] = data;
     }
 
 }
@@ -214,7 +215,7 @@ void stack_pop_arr() //Complete the function stubs needed to implement the opera
 //---------------------------------------------------------------------- 
 int stack_isEmpty_arr() //Complete the function stubs needed to implement the operations 
 { 
-    if(top==0) return 1;
+    if(top==-1) return 1;
     else return 0;
 }
 
@@ -226,8 +227,7 @@ int stack_peek_arr() //Complete the function stubs needed to implement the opera
 { 
     if(stack_isEmpty_arr()) return -999;
     else{
-        int temp = top;
-        return st[--temp];
+        return st[top];
     }
 }
 
@@ -238,23 +238,26 @@ int stack_peek_arr() //Complete the function stubs needed to implement the opera
 void stack_print_arr()
 {
    cout << "\n\n\n\t\tThe Representation of stack is as follows\n\n";
-
-   for (int i = top; i >= 0; i--)
-   {
-     if (i == top)
-       {
-         cout << "\t\t\t" << st[i] << "<-"
-         << "\n"
-         << "\t\t\t-"
-         << "\n";        
-        }
-        else
+    if(stack_isEmpty_arr())cout<<"Stack is empty"<<endl;
+    else{
+        for (int i = top; i >= 0; i--)
         {
-          cout << "\t\t\t" << st[i] << "\n"
-          << "\t\t\t-"
-          << "\n";
-        }
+          if (i == top)
+            {
+              cout << "\t\t\t" << st[i] << "<-"
+              << "\n"
+              << "\t\t\t-"
+              << "\n";
+             }
+             else
+             {
+               cout << "\t\t\t" << st[i] << "\n"
+               << "\t\t\t-"
+               << "\n";
+             }
+         }
     }
+   
     cin.get();
     stack_arr();
 }
